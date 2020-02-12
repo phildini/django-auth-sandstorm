@@ -20,6 +20,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 MIDDLEWARE_CLASSES += (
-    'django_sandstorm.middleware.SandstormMiddleware',
+    'django_sandstorm.middleware.SandstormUserMiddleware',
 )
 ```

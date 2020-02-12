@@ -13,9 +13,6 @@ setup(
     packages=['django_sandstorm'],
     include_package_data=True,
     license='MIT License',
-    install_requires=[
-        'six',
-    ],
     description='A sandstorm.io integration for Django.',
     long_description=README,
     url='https://github.com/phildini/django-sandstorm',
