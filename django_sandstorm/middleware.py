@@ -1,6 +1,7 @@
 from urllib.parse import unquote
 
 from django.contrib.auth.middleware import RemoteUserMiddleware
+from django.utils.deprecation import MiddlewareMixin
 
 
 class SandstormUserMiddleware(RemoteUserMiddleware):
@@ -47,3 +48,12 @@ class SandstormUserMiddleware(RemoteUserMiddleware):
             if 'admin' in perms:
                 request.user.is_staff = True
                 request.user.is_superuser = True
+
+
+class SandstormPreCsrfViewMiddleware(MiddlewareMixin):
+    base_path = 'HTTP_X_SANDSTORM_BASE_PATH'
+    referrer = 'HTTP_REFERER'
+
+    def process_view(self, request, callback, callback_args, callback_kwargs):
+        if self.base_path in request.META:
+            request.META[self.referrer] = request.META[self.base_path]
