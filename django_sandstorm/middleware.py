@@ -40,13 +40,14 @@ class SandstormUserMiddleware(RemoteUserMiddleware):
         """
         Update user permissions based on Sandstorm headers.
 
-        This method assumes a default "admin" permission that is granted staff
-        and superuser status in Django.
+        This method assumes Sandstorm permissions matching the "staff" and
+        "superuser" conventions in Django.
         """
         if self.user_perms in request.META:
             perms = request.META.get(self.user_perms).split(',')
-            if 'admin' in perms:
+            if 'staff' in perms:
                 request.user.is_staff = True
+            if 'superuser' in perms:
                 request.user.is_superuser = True
 
 
